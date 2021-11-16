@@ -2,6 +2,8 @@
 //
 
 #include "kalkulacka.h"
+#include "funkce.h"
+
 
 using namespace std;
 //zjistit jak udelat pole ktere ma definovanou velikost az v programu (po nacteni hodnot)
@@ -10,83 +12,10 @@ using namespace std;
 
 //Nacte aktualni matici
 
-//Naplni vlozene pole rozmery matice od uzivatele
-void nactiRozmer(int rozmer[2])
-{
-	scanf_s("%d %d", &rozmer[0], &rozmer[1]);
-}
-//Nacte od uzivatele matici
-void nactiMatici(int matice[5][5], int max[2]) //nebo int (*matice[5])
-{
-	for (int y = 0; y < max[1]; y++)
-	{
-		for (int x = 0; x < max[0]; x++)
-		{
-			scanf_s(" %d", &matice[x][y]);
-		}
-	}
-}
-//Vypise zadanou matici
-void vypisMatici(int matice[5][5], int max[2])
-{
-	for (int y = 0; y < max[1]; y++) //vypis
-	{
-		for (int x = 0; x < max[0]; x++)
-		{
-			printf_s("%5d", matice[x][y]);
-		}
-		printf_s("\n");
-	}
-	//vnořit do sebe funkce a dát tam opakovací přetížení -přidat if do přechozí funkce, a přidat (, int cislo);
-}
-int stejnytypMatice(int max1[2], int max2[2])
-{
-	if (max1[0] != max2[0] || max1[1] != max2[1])
-	{
-		printf("Nelze scitat - matice nejsou stejneho typu");
-		return 1;
-	}
-	return 0;
-}
-//secte matice
-void sectiMatice(int Matice1[5][5], int Matice2[5][5], int final[5][5], int max1[2], int max2[2])
-{
-	if(stejnytypMatice(max1, max2)==1)
-	{
-		
-	}
-	else
-	{ 
-		for (int y = 0; y < max1[1]; y++)
-		{
-			for (int x = 0; x < max1[0]; x++)
-			{
-				final[x][y] = Matice1[x][y] + Matice2[x][y];
-			}
-		}
-	}
-}
-void odectiMatice(int Matice1[5][5], int Matice2[5][5], int final[5][5], int max1[2], int max2[2])
-{
-	int stejnytypMatice(int max1[2], int max2[2]);
-	if(stejnytypMatice(max1, max2) == 1)
-	{
-	
-	}
-	else
-	{
-		for (int y = 0; y < max1[1]; y++)
-		{
-			for (int x = 0; x < max1[0]; x++)
-			{
-				final[x][y] = Matice1[x][y] - Matice2[x][y];
-			}
-		}
-	}
-}
+
 int main()
 {
-	
+	//šlo by dát do structu
 	int matice1[5][5];
 	int rozmer1[2];
 	int matice2[5][5];
@@ -110,8 +39,13 @@ int main()
 	//------scitani
 	//for(matice)
 	sectiMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2);
+	printf_s("Soucet matic: \n");
 	vypisMatici(maticeFinal, rozmer2);
 	odectiMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2);
+	printf_s("Rozdil matic: \n");
+	vypisMatici(maticeFinal, rozmer2);
+	printf_s("Náosbení skalárem: \n");
+	nasobSkalarem(5, matice1, maticeFinal, rozmer1);
 	vypisMatici(maticeFinal, rozmer2);
 	
 	return 0;
