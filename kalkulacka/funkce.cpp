@@ -7,7 +7,7 @@
 //Naplni vlozene pole rozmery matice od uzivatele
 void nactiRozmer(int rozmer[2])
 {
-	scanf_s("%d %d", &rozmer[0], &rozmer[1]);
+	scanf_s("%d %d", &rozmer[1], &rozmer[0]);
 }
 //Nacte od uzivatele matici
 void nactiMatici(int matice[5][5], int max[2]) //nebo int (*matice[5])
@@ -91,10 +91,39 @@ void nasobSkalarem(int cislo, int matice[5][5], int final[5][5], int max[2])
 	}
 }
 //vynasobi matice M1*M2 - pozor neni komutativni
-void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int max2[2]) //doplnit nuly
+void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int max2[2], int finalRozmer[2]) //doplnit nuly
 { //nasobeni matic musi byt ulozeno do jineho pole, jinak se bude prepisovat --- zarid smazani
-	/*if (max1[0] == max2[1])
+	if (max1[0] == max2[1])
 	{
+		for (int y = 0; y < 5; y++)
+		{
+			for (int x = 0; x < 5; x++)
+			{
+				final[x][y] = 0;
+			}
+		}
+		for (int c = 0; c < max1[0]; c++) //pravidlo o velikosti proto dokud neskonci rozmer matice (stejne se nasobi kazdy s kazdym, jinak by to nevyslo)
+		{
+			for (int d = 0; d < max1[0]; d++) //drive max2[1]
+			{
+				for (int h = 0; h < max1[0]; h++)
+				{
+					final[d][h] = final[d][h] + M1[c][h] * M2[d][c];
+				}
+			}
+		}
+		finalRozmer[0] = max2[0];//pocet x ve finalnim rozmeru stejny jako pocet x v druhe matici
+		finalRozmer[1] = max1[1];//pocet y ve finalnim rozmeru stejny jako pocet y v druhe matici
+	}
+	else
+	{
+		printf("Matice nelze nasobit. \n");
+	}
+}
+		/*
+
+
+
 		for (int y = 0; y < max1[1]; y++)
 		{
 			for (int x = 0; x < max2[0]; x++)
@@ -114,11 +143,14 @@ void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int m
 					final[1][2] = final[1][2] + M1[c][2] * M2[1][c];
 					final[2][2] = final[2][2] + M1[c][2] * M2[2][c];
 				}
+				final[c][0] = final[c][0] + M1[c][0] * M2[c][c];
+				final[c][1] = final[c][1] + M1[c][1] * M2[c][c];
+				final[c][2] = final[c][2] + M1[c][2] * M2[c][c];
 				
 				//final[x][y] = final[x][y] + M1[1][0]*M2[0][1]
 				//+M1[2][0]*M2[0][2]
 			}//první krát první, druhej krát druhej, tøetí krát tøetí
-		}*/	
+		}
 	for (int y = 0; y < 5; y++)
 	{
 		for (int x = 0; x < 5; x++)
@@ -126,10 +158,12 @@ void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int m
 			final[x][y] = 0;
 		}
 	}
-
+		//for(int d=0; d<;d++)
+	//for (int d = 0; d < max2[0]; d++)
+	//{
 			for (int c = 0; c < max1[1]; c++)
 			{		//x  y
-				final[0][0] = final[0][0] + M1[c][0] * M2[0][c];
+				/*final[0][0] = final[0][0] + M1[c][0] * M2[0][c];
 				final[1][0] = final[1][0] + M1[c][0] * M2[1][c];
 				final[2][0] = final[2][0] + M1[c][0] * M2[2][c];
 				//-----------------------------------------------
@@ -140,16 +174,36 @@ void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int m
 				final[0][2] = final[0][2] + M1[c][2] * M2[0][c];
 				final[1][2] = final[1][2] + M1[c][2] * M2[1][c];
 				final[2][2] = final[2][2] + M1[c][2] * M2[2][c];
+				//---------------
+				for(int d=0; d<max2[0]; d++)
+				{ 
+					for (int h = 0; h < max1[1]; h++)
+					{ 
+						final[d][h] = final[d][h] + M1[c][h] * M2[d][c];
+				/*final[d][0] = final[d][0] + M1[c][0] * M2[d][c];
+				final[d][1] = final[d][1] + M1[c][1] * M2[d][c];
+				final[d][2] = final[d][2] + M1[c][2] * M2[d][c];
+					}
+				}
+					//final[c][d] = final[c][d] + M1[c][d] * M2[c][c];
 			}
-	}
-	/*else
-	{
-		printf("Matice nelze nasobit. \n");
-	}*/
+				//final[c][d] = final[c][d] + M1[c][d]*M2[d][c]
+	//}
+	*/
 
 //prvni matice urcuje pocet radku, druha pocet sloupcu finalni
 //moznosti: 1) doplnit nuly, bude se vykonavat hodne zbytecneho nasobeni
 //2) zapodminkovat
 //---- rozmyslet dopad pri velkych maticich
-
+/*				final[0][0] = final[0][0] + M1[c][0] * M2[0][c];
+				final[1][0] = final[1][0] + M1[c][0] * M2[1][c];
+				final[2][0] = final[2][0] + M1[c][0] * M2[2][c];
+				//-----------------------------------------------
+				final[0][1] = final[0][1] + M1[c][1] * M2[0][c];
+				final[1][1] = final[1][1] + M1[c][1] * M2[1][c];
+				final[2][1] = final[2][1] + M1[c][1] * M2[2][c];
+				//-----------------------------------------------
+				final[0][2] = final[0][2] + M1[c][2] * M2[0][c];
+				final[1][2] = final[1][2] + M1[c][2] * M2[1][c];
+				final[2][2] = final[2][2] + M1[c][2] * M2[2][c];*/
 //pøiète jednièku tolikrát, kolikrát je velká matice

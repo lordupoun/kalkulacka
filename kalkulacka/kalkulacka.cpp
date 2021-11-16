@@ -7,10 +7,16 @@
 
 using namespace std;
 //zjistit jak udelat pole ktere ma definovanou velikost az v programu (po nacteni hodnot)
+//TO DO:
 //float misto int
 //automaticke zjisteni velikosti matice
 
 //Nacte aktualni matici
+//struct
+//ify zmackni s pro scitani
+//finalRozmer pro vsechny funkce
+//odemknout pro tvorbu matic vetsich nez 5x5
+//limit na 5x5
 
 
 int main()
@@ -21,9 +27,9 @@ int main()
 	int matice2[5][5];
 	int rozmer2[2];
 	int maticeFinal[5][5];
-	int maticeFinal2[5][5];
+	int rozmerFinal[2];
 
-	printf_s("Zadejte rozmery 1. matice (format: m n): ");
+	printf_s("Zadejte rozmery 1. matice (format: mxn - radkyXsloupce): ");
 	nactiRozmer(rozmer1);
 	printf_s("Zapiste 1. matici:\n");
 	nactiMatici(matice1, rozmer1);
@@ -46,12 +52,12 @@ int main()
 	odectiMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2);
 	printf_s("Rozdil matic: \n");
 	vypisMatici(maticeFinal, rozmer2);
-	printf_s("Náosbení skalárem: \n");
+	printf_s("Nasobeni skalarem: \n");
 	nasobSkalarem(5, matice1, maticeFinal, rozmer1);
 	vypisMatici(maticeFinal, rozmer1); //maticeFinal.rozmer
-	printf_s("Náosbení M1xM2: \n");
-	nasobMatice(matice1, matice2, maticeFinal2, rozmer1, rozmer2);
-	vypisMatici(maticeFinal2, rozmer2);
+	printf_s("Nasosbeni M1xM2: \n");
+	nasobMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2, rozmerFinal);
+	vypisMatici(maticeFinal, rozmerFinal);
 
 	
 	return 0;
