@@ -17,10 +17,12 @@ int main()
 {
 	//šlo by dát do structu
 	int matice1[5][5];
-	int rozmer1[2];
+	int rozmer1[2]; //[0] - x; [1] -y
 	int matice2[5][5];
 	int rozmer2[2];
 	int maticeFinal[5][5];
+	int maticeFinal2[5][5];
+
 	printf_s("Zadejte rozmery 1. matice (format: m n): ");
 	nactiRozmer(rozmer1);
 	printf_s("Zapiste 1. matici:\n");
@@ -46,7 +48,11 @@ int main()
 	vypisMatici(maticeFinal, rozmer2);
 	printf_s("Náosbení skalárem: \n");
 	nasobSkalarem(5, matice1, maticeFinal, rozmer1);
-	vypisMatici(maticeFinal, rozmer2);
+	vypisMatici(maticeFinal, rozmer1); //maticeFinal.rozmer
+	printf_s("Náosbení M1xM2: \n");
+	nasobMatice(matice1, matice2, maticeFinal2, rozmer1, rozmer2);
+	vypisMatici(maticeFinal2, rozmer2);
+
 	
 	return 0;
 }
@@ -68,3 +74,10 @@ int main()
 
 //ošetřit zavírání
 //-----------
+
+/*while (uzivatel nezmackne enter)
+{
+	pocitadlo;
+	scanf_s("%d", &rozmer[0], &rozmer[1]);
+}
+*/
