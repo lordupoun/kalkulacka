@@ -120,6 +120,63 @@ void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int m
 		printf("Matice nelze nasobit. \n");
 	}
 }
+void determinant(int M[5][5], int max[2]) //lze optimalizovat, mozna se na to kouknout
+{
+	if (max[0] == max[1])
+	{
+		if (max[0] == 1)
+		{
+			printf("Determinant = %d \n", M[0][0]);
+		}
+		else if (max[0] == 2)
+		{
+			printf("Determinant = %d \n", (M[0][0] * M[1][1]) - (M[1][0] * M[0][1]));
+		}
+		else if (max[0] == 3)
+		{
+			printf("Determinant = %d \n", (M[0][0] * M[1][1]*M[2][2])+ (M[0][1] * M[1][2] * M[2][0])+ (M[0][2] * M[1][0] * M[2][1]) - (M[2][0] * M[1][1]*M[0][2])- (M[2][1] * M[1][2] * M[0][0])- (M[2][2] * M[1][0] * M[0][1]));
+		}
+		else if (max[0] == 4)
+		{
+
+		}
+		else
+		{
+			printf("Program pocita determinant matice ve formatu nejvyse 4x4 \n");
+		}
+	}
+	else
+	{
+		printf("Matice neni ctvercova! \n");
+	}
+}
+void transponovana(int M[5][5], int max[2], int final[5][5], int finalRozmery[2])
+{
+	for (int y = 0; y < max[1]; y++)
+	{
+		for (int x = 0; x < max[0]; x++)
+		{
+			final[y][x] = M[x][y]; //opacne souradnice nefunguji
+		}
+		finalRozmery[0] = max[1];
+		finalRozmery[1] = max[0];
+	}
+
+	
+	/*int vetsiRozmer; //bude se delat asi i pro hodnoty co nejsou naplnene
+	if (max[0] > max[1])
+	{
+		vetsiRozmer = max[0];
+	}
+	else 
+	{
+		vetsiRozmer = max[1];
+	}
+	for (int i = 0; i < vetsiRozmer*vetsiRozmer; i++)
+	{
+		final[i]
+	}*/
+}
 		/*
 
 

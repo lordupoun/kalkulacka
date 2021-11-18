@@ -18,3 +18,7 @@ void odectiMatice(int Matice1[5][5], int Matice2[5][5], int final[5][5], int max
 void nasobSkalarem(int cislo, int matice[5][5], int final[5][5], int max[2]);
 
 void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int max2[2], int finalRozmer[2]);
+
+void determinant(int M1[5][5], int max1[2]);
+
+void transponovana(int M[5][5], int max[2], int final[5][5], int finalRozmery[2]);

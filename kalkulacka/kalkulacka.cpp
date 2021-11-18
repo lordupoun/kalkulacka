@@ -17,6 +17,7 @@ using namespace std;
 //finalRozmer pro vsechny funkce
 //odemknout pro tvorbu matic vetsich nez 5x5
 //limit na 5x5
+//nevypisovat cisla kdyz funkce nema reseni
 
 
 int main()
@@ -55,9 +56,16 @@ int main()
 	printf_s("Nasobeni skalarem: \n");
 	nasobSkalarem(5, matice1, maticeFinal, rozmer1);
 	vypisMatici(maticeFinal, rozmer1); //maticeFinal.rozmer
-	printf_s("Nasosbeni M1xM2: \n");
+	printf_s("Nasobeni M1xM2: \n");
 	nasobMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2, rozmerFinal);
 	vypisMatici(maticeFinal, rozmerFinal);
+	printf_s("Determinant: \n");
+	determinant(matice1, rozmer1); //slo by hodit returnem
+	printf_s("Transponovana matice: \n");
+	transponovana(matice1, rozmer1, maticeFinal, rozmerFinal);
+	vypisMatici(maticeFinal, rozmerFinal); //rozmer je stejny jako puvodni rozmer
+
+
 
 	
 	return 0;
