@@ -95,7 +95,7 @@ void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int m
 { //nasobeni matic musi byt ulozeno do jineho pole, jinak se bude prepisovat --- zarid smazani
 	if (max1[0] == max2[1])
 	{
-		for (int y = 0; y < 5; y++)
+		for (int y = 0; y < 5; y++) //nulovani
 		{
 			for (int x = 0; x < 5; x++)
 			{
@@ -104,10 +104,10 @@ void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int m
 		}
 		for (int c = 0; c < max1[0]; c++) //pravidlo o velikosti proto dokud neskonci rozmer matice (stejne se nasobi kazdy s kazdym, jinak by to nevyslo)
 		{
-			for (int d = 0; d < max1[0]; d++) //drive max2[1]
+			for (int d = 0; d < max1[1]; d++) //drive max2[1]
 			{
-				for (int h = 0; h < max1[0]; h++)
-				{
+				for (int h = 0; h < max1[1]; h++)
+				{					//  x  y       x  y       x  y
 					final[d][h] = final[d][h] + M1[c][h] * M2[d][c];
 				}
 			}
@@ -138,7 +138,7 @@ void determinant(int M[5][5], int max[2]) //lze optimalizovat, mozna se na to ko
 		}
 		else if (max[0] == 4)
 		{
-
+			//dodelat
 		}
 		else
 		{
