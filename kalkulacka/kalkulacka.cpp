@@ -12,9 +12,9 @@ using namespace std;
 //automaticke zjisteni velikosti matice
 
 //Nacte aktualni matici
-//struct
+//done-struct
 //ify zmackni s pro scitani
-//finalRozmer pro vsechny funkce
+//done-finalRozmer pro vsechny funkce
 //odemknout pro tvorbu matic vetsich nez 5x5
 //limit na 5x5
 //nevypisovat cisla kdyz funkce nema reseni
@@ -23,47 +23,51 @@ using namespace std;
 int main()
 {
 	//šlo by dát do structu
-	int matice1[5][5];
-	int rozmer1[2]; //[0] - x; [1] -y
-	int matice2[5][5];
-	int rozmer2[2];
-	int maticeFinal[5][5];
-	int rozmerFinal[2];
+	struct matice A;
+	struct matice B;
+	struct matice Final;
+	int cislo = 5;
+	//int matice1[5][5];
+	//int rozmer1[2]; //[0] - x; [1] -y
+	//int matice2[5][5];
+	//int rozmer2[2];
+	//int maticeFinal[5][5];
+	//int rozmerFinal[2];
 
 	printf_s("Zadejte rozmery 1. matice (format: mxn - radkyXsloupce): ");
-	nactiRozmer(rozmer1);
+	nactiRozmer(&A);
 	printf_s("Zapiste 1. matici:\n");
-	nactiMatici(matice1, rozmer1);
+	nactiMatici(&A);
 	printf_s("Byla vlozena 1. matice ve tvaru: \n");
-	vypisMatici(matice1, rozmer1);
+	vypisMatici(&A);
 
 	printf_s("\nZadejte rozmery 2. matice(mn): ");
-	nactiRozmer(rozmer2);
+	nactiRozmer(&B);
 	printf_s("Zapiste 2. matici:\n");
-	nactiMatici(matice2, rozmer2);
+	nactiMatici(&B);
 	printf_s("Byla vlozena 2. matice ve tvaru: \n");
-	vypisMatici(matice2, rozmer2);
+	vypisMatici(&B);
 	// je to správně? možnost přepsat řádek
-	//switch pro vyber
-	//------scitani
-	//for(matice)
-	sectiMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2);
+	////switch pro vyber
+	////------scitani
+	////for(matice)
+	sectiMatice(&A, &B, &Final);
 	printf_s("Soucet matic: \n");
-	vypisMatici(maticeFinal, rozmer2);
-	odectiMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2);
+	vypisMatici(&Final);
+	odectiMatice(&A, &B, &Final);
 	printf_s("Rozdil matic: \n");
-	vypisMatici(maticeFinal, rozmer2);
+	vypisMatici(&Final);
 	printf_s("Nasobeni skalarem: \n");
-	nasobSkalarem(5, matice1, maticeFinal, rozmer1);
-	vypisMatici(maticeFinal, rozmer1); //maticeFinal.rozmer
+	nasobSkalarem(&A, cislo, &Final);
+	vypisMatici(&Final); //maticeFinal.rozmer
 	printf_s("Nasobeni M1xM2: \n");
-	nasobMatice(matice1, matice2, maticeFinal, rozmer1, rozmer2, rozmerFinal);
-	vypisMatici(maticeFinal, rozmerFinal);
+	nasobMatice(&A, &B, &Final);
+	vypisMatici(&Final);
 	printf_s("Determinant: \n");
-	determinant(matice1, rozmer1); //slo by hodit returnem
+	determinant(&A); //slo by hodit returnem
 	printf_s("Transponovana matice: \n");
-	transponovana(matice1, rozmer1, maticeFinal, rozmerFinal);
-	vypisMatici(maticeFinal, rozmerFinal); //rozmer je stejny jako puvodni rozmer
+	transponovana(&A, &Final);
+	vypisMatici(&Final); //rozmer je stejny jako puvodni rozmer
 
 
 

@@ -4,162 +4,180 @@
 #define Xsloupce 0
 #define Yradky 1 //zamenit max a rozmer
 
-//Naplni vlozene pole rozmery matice od uzivatele
-void nactiRozmer(int rozmer[2])
+void inicializuj(struct matice *a)
 {
-	scanf_s("%d %d", &rozmer[1], &rozmer[0]);
+	a->Xrozmer = 0;
+	a->Yrozmer = 0;
+for(int y = 0; y < 5; y++)
+{
+	for (int x = 0; x < 5; x++)
+	{
+		a->hodnoty[x][y]=0;
+	}
+}
+}
+
+//Naplni vlozene pole rozmery matice od uzivatele
+void nactiRozmer(struct matice* a)
+{
+	scanf_s("%d %d", &a->Xrozmer, &a->Yrozmer);
 }
 //Nacte od uzivatele matici
-void nactiMatici(int matice[5][5], int max[2]) //nebo int (*matice[5])
+void nactiMatici(struct matice* a) //nebo int (*matice[5])
 {
-	for (int y = 0; y < max[1]; y++)
+	for (int y = 0; y < a->Yrozmer; y++)
 	{
-		for (int x = 0; x < max[0]; x++)
+		for (int x = 0; x < a->Xrozmer; x++)
 		{
-			scanf_s(" %d", &matice[x][y]);
+			scanf_s(" %d", &a->hodnoty[x][y]);
 		}
 	}
 }
 //Vypise zadanou matici
-void vypisMatici(int matice[5][5], int max[2])
+void vypisMatici(struct matice* a)
 {
-	for (int y = 0; y < max[1]; y++) //vypis
+	for (int y = 0; y < a->Yrozmer; y++) //vypis
 	{
-		for (int x = 0; x < max[0]; x++)
+		for (int x = 0; x < a->Xrozmer; x++)
 		{
-			printf_s("%5d", matice[x][y]);
+			printf_s("%5d", a->hodnoty[x][y]);
 		}
 		printf_s("\n");
 	}
 	//vnoøit do sebe funkce a dát tam opakovací pøetížení -pøidat if do pøechozí funkce, a pøidat (, int cislo);
 }
-int stejnytypMatice(int max1[2], int max2[2])
+int stejnytypMatice(struct matice* a, struct matice* b)
 {
-	if (max1[0] != max2[0] || max1[1] != max2[1])
+	if (a->Xrozmer != b->Xrozmer || a->Yrozmer != b->Yrozmer)
 	{
-		printf("Nelze scitat - matice nejsou stejneho typu");
+		printf_s("Nelze scitat - matice nejsou stejneho typu\n");
 		return 1;
 	}
 	return 0;
 }
 //secte matice
-void sectiMatice(int Matice1[5][5], int Matice2[5][5], int final[5][5], int max1[2], int max2[2])
+void sectiMatice(struct matice* a, struct matice* b, struct matice* c)
 {
-	if (stejnytypMatice(max1, max2) == 1)
+	if (stejnytypMatice(a, b) == 1)
 	{
 
 	}
 	else
 	{
-		for (int y = 0; y < max1[1]; y++)
+		c->Xrozmer = a->Xrozmer;
+		c->Yrozmer = a->Yrozmer;
+		for (int y = 0; y < a->Yrozmer; y++)
 		{
-			for (int x = 0; x < max1[0]; x++)
+			for (int x = 0; x < a->Xrozmer; x++)
 			{
-				final[x][y] = Matice1[x][y] + Matice2[x][y];
+				c->hodnoty[x][y] = a->hodnoty[x][y] + b->hodnoty[x][y];
 			}
 		}
 	}
 }
 //Odecte zadane matice
-void odectiMatice(int Matice1[5][5], int Matice2[5][5], int final[5][5], int max1[2], int max2[2])
+void odectiMatice(struct matice* a, struct matice* b, struct matice* c)
 {
-	int stejnytypMatice(int max1[2], int max2[2]);
-	if (stejnytypMatice(max1, max2) == 1)
+	if (stejnytypMatice(a, b) == 1)
 	{
 
 	}
 	else
 	{
-		for (int y = 0; y < max1[1]; y++)
+		c->Xrozmer = a->Xrozmer;
+		c->Yrozmer = a->Yrozmer;
+		for (int y = 0; y < a->Yrozmer; y++)
 		{
-			for (int x = 0; x < max1[0]; x++)
+			for (int x = 0; x < a->Xrozmer; x++)
 			{
-				final[x][y] = Matice1[x][y] - Matice2[x][y];
+				c->hodnoty[x][y] = a->hodnoty[x][y] - b->hodnoty[x][y];
 			}
 		}
 	}
 }
 //vynasobi matici skalarem
-void nasobSkalarem(int cislo, int matice[5][5], int final[5][5], int max[2])
+void nasobSkalarem(struct matice* a, int skalar, struct matice* c)
 {
-	for (int y = 0; y < max[1]; y++)
+	c->Xrozmer = a->Xrozmer;
+	c->Yrozmer = a->Yrozmer;
+	for (int y = 0; y < a->Yrozmer; y++)
 	{
-		for (int x = 0; x < max[0]; x++)
+		for (int x = 0; x < a->Xrozmer; x++)
 		{
-			final[x][y] = matice[x][y]*cislo;
+			c->hodnoty[x][y] = a->hodnoty[x][y]*skalar;
 		}
 	}
 }
 //vynasobi matice M1*M2 - pozor neni komutativni
-void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int max2[2], int finalRozmer[2]) //doplnit nuly
+void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit nuly
 { //nasobeni matic musi byt ulozeno do jineho pole, jinak se bude prepisovat --- zarid smazani
-	if (max1[0] == max2[1])
+	if (a->Xrozmer == b->Yrozmer)
 	{
 		for (int y = 0; y < 5; y++) //nulovani
 		{
 			for (int x = 0; x < 5; x++)
 			{
-				final[x][y] = 0;
+				c->hodnoty[x][y] = 0;
 			}
 		}
-		for (int c = 0; c < max1[0]; c++) //pravidlo o velikosti proto dokud neskonci rozmer matice (stejne se nasobi kazdy s kazdym, jinak by to nevyslo)
+		for (int j = 0; j < a->Xrozmer; j++) //pravidlo o velikosti proto dokud neskonci rozmer matice (stejne se nasobi kazdy s kazdym, jinak by to nevyslo)
 		{
-			for (int d = 0; d < max1[1]; d++) //drive max2[1]
+			for (int d = 0; d < a->Yrozmer; d++) //drive max2[1]
 			{
-				for (int h = 0; h < max1[1]; h++)
+				for (int h = 0; h < a->Yrozmer; h++)
 				{					//  x  y       x  y       x  y
-					final[d][h] = final[d][h] + M1[c][h] * M2[d][c];
+					c->hodnoty[d][h] = c->hodnoty[d][h] + a->hodnoty[j][h] * b->hodnoty[d][j];
 				}
 			}
 		}
-		finalRozmer[0] = max2[0];//pocet x ve finalnim rozmeru stejny jako pocet x v druhe matici
-		finalRozmer[1] = max1[1];//pocet y ve finalnim rozmeru stejny jako pocet y v druhe matici
+		c->Xrozmer = b->Xrozmer;//pocet x ve finalnim rozmeru stejny jako pocet x v druhe matici
+		c->Yrozmer = a->Yrozmer;//pocet y ve finalnim rozmeru stejny jako pocet y v druhe matici
 	}
 	else
 	{
-		printf("Matice nelze nasobit. \n");
+		printf_s("Matice nelze nasobit. \n");
 	}
 }
-void determinant(int M[5][5], int max[2]) //lze optimalizovat, mozna se na to kouknout
+void determinant(struct matice* a) //lze optimalizovat, mozna se na to kouknout
 {
-	if (max[0] == max[1])
+	if (a->Xrozmer == a->Yrozmer)
 	{
-		if (max[0] == 1)
+		if (a->Xrozmer == 1)
 		{
-			printf("Determinant = %d \n", M[0][0]);
+			printf_s("Determinant = %d \n", a->hodnoty[0][0]);
 		}
-		else if (max[0] == 2)
+		else if (a->Xrozmer == 2)
 		{
-			printf("Determinant = %d \n", (M[0][0] * M[1][1]) - (M[1][0] * M[0][1]));
+			printf_s("Determinant = %d \n", (a->hodnoty[0][0] * a->hodnoty[1][1]) - (a->hodnoty[1][0] * a->hodnoty[0][1]));
 		}
-		else if (max[0] == 3)
+		else if (a->Xrozmer == 3)
 		{
-			printf("Determinant = %d \n", (M[0][0] * M[1][1]*M[2][2])+ (M[0][1] * M[1][2] * M[2][0])+ (M[0][2] * M[1][0] * M[2][1]) - (M[2][0] * M[1][1]*M[0][2])- (M[2][1] * M[1][2] * M[0][0])- (M[2][2] * M[1][0] * M[0][1]));
+			printf_s("Determinant = %d \n", (a->hodnoty[0][0] * a->hodnoty[1][1]* a->hodnoty[2][2])+ (a->hodnoty[0][1] * a->hodnoty[1][2] * a->hodnoty[2][0])+ (a->hodnoty[0][2] * a->hodnoty[1][0] * a->hodnoty[2][1]) - (a->hodnoty[2][0] * a->hodnoty[1][1]* a->hodnoty[0][2])- (a->hodnoty[2][1] * a->hodnoty[1][2] * a->hodnoty[0][0])- (a->hodnoty[2][2] * a->hodnoty[1][0] * a->hodnoty[0][1]));
 		}
-		else if (max[0] == 4)
+		else if (a->Xrozmer == 4)
 		{
 			//dodelat
 		}
 		else
 		{
-			printf("Program pocita determinant matice ve formatu nejvyse 4x4 \n");
+			printf_s("Program pocita determinant matice ve formatu nejvyse 4x4 \n");
 		}
 	}
 	else
 	{
-		printf("Matice neni ctvercova! \n");
+		printf_s("Matice neni ctvercova! \n");
 	}
 }
-void transponovana(int M[5][5], int max[2], int final[5][5], int finalRozmery[2])
+void transponovana(struct matice* a, struct matice* c)
 {
-	for (int y = 0; y < max[1]; y++)
+	for (int y = 0; y < a->Yrozmer; y++)
 	{
-		for (int x = 0; x < max[0]; x++)
+		for (int x = 0; x < a->Xrozmer; x++)
 		{
-			final[y][x] = M[x][y]; //opacne souradnice nefunguji
+			c->hodnoty[y][x] = a->hodnoty[x][y]; //opacne souradnice nefunguji
 		}
-		finalRozmery[0] = max[1];
-		finalRozmery[1] = max[0];
+		c->Xrozmer = a->Yrozmer;
+		c->Yrozmer = a->Xrozmer;
 	}
 
 	

@@ -1,24 +1,33 @@
 #pragma once
-//Naplni vlozene pole rozmery matice od uzivatele
-void nactiRozmer(int rozmer[2]);
+
+struct matice
+{
+	int hodnoty[5][5];
+	int Xrozmer;
+	int Yrozmer;
+};
+void inicializuj(struct matice *a);
+
+//Naplni vlozene pole rozmery matice od uzivatele, predavat adresou
+void nactiRozmer(struct matice* a);
 
 //Nacte od uzivatele matici
-void nactiMatici(int matice[5][5], int max[2]); //nebo int (*matice[5])
+void nactiMatici(struct matice* a); //nebo int (*matice[5])
 
 //Vypise zadanou matici
-void vypisMatici(int matice[5][5], int max[2]);
-
-int stejnytypMatice(int max1[2], int max2[2]);
+void vypisMatici(struct matice* a);
+//zkontroluje mxn
+int stejnytypMatice(struct matice* a, struct matice* b);
 
 //secte matice
-void sectiMatice(int Matice1[5][5], int Matice2[5][5], int final[5][5], int max1[2], int max2[2]);
-
-void odectiMatice(int Matice1[5][5], int Matice2[5][5], int final[5][5], int max1[2], int max2[2]);
-
-void nasobSkalarem(int cislo, int matice[5][5], int final[5][5], int max[2]);
-
-void nasobMatice(int M1[5][5], int M2[5][5], int final[5][5], int max1[2], int max2[2], int finalRozmer[2]);
-
-void determinant(int M1[5][5], int max1[2]);
-
-void transponovana(int M[5][5], int max[2], int final[5][5], int finalRozmery[2]);
+void sectiMatice(struct matice* a, struct matice* b, struct matice* c);
+//odecte matice
+void odectiMatice(struct matice* a, struct matice* b, struct matice* c);
+//vynasobi matici skalarem
+void nasobSkalarem(struct matice* a, int skalar, struct matice* c);
+//vynasobi matice
+void nasobMatice(struct matice* a, struct matice* b, struct matice* c);
+//spocita determinant
+void determinant(struct matice* a);
+//vypocte transponovanou matici
+void transponovana(struct matice* a, struct matice* c);
