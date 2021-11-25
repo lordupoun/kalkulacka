@@ -2,7 +2,7 @@
 
 struct matice
 {
-	int hodnoty[5][5];
+	double hodnoty[5][5];
 	int Xrozmer;
 	int Yrozmer;
 };

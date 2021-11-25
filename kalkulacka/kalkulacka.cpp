@@ -18,6 +18,8 @@ using namespace std;
 //odemknout pro tvorbu matic vetsich nez 5x5
 //limit na 5x5
 //nevypisovat cisla kdyz funkce nema reseni
+//pridat %g pro determinant
+//zmenit formatovani
 
 
 int main()

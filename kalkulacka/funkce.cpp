@@ -29,7 +29,7 @@ void nactiMatici(struct matice* a) //nebo int (*matice[5])
 	{
 		for (int x = 0; x < a->Xrozmer; x++)
 		{
-			scanf_s(" %d", &a->hodnoty[x][y]);
+			scanf_s(" %lf", &a->hodnoty[x][y]);
 		}
 	}
 }
@@ -40,7 +40,7 @@ void vypisMatici(struct matice* a)
 	{
 		for (int x = 0; x < a->Xrozmer; x++)
 		{
-			printf_s("%5d", a->hodnoty[x][y]);
+			printf_s("%5g", a->hodnoty[x][y]);
 		}
 		printf_s("\n");
 	}
@@ -144,15 +144,15 @@ void determinant(struct matice* a) //lze optimalizovat, mozna se na to kouknout
 	{
 		if (a->Xrozmer == 1)
 		{
-			printf_s("Determinant = %d \n", a->hodnoty[0][0]);
+			printf_s("Determinant = %lf \n", a->hodnoty[0][0]);
 		}
 		else if (a->Xrozmer == 2)
 		{
-			printf_s("Determinant = %d \n", (a->hodnoty[0][0] * a->hodnoty[1][1]) - (a->hodnoty[1][0] * a->hodnoty[0][1]));
+			printf_s("Determinant = %lf \n", (a->hodnoty[0][0] * a->hodnoty[1][1]) - (a->hodnoty[1][0] * a->hodnoty[0][1]));
 		}
 		else if (a->Xrozmer == 3)
 		{
-			printf_s("Determinant = %d \n", (a->hodnoty[0][0] * a->hodnoty[1][1]* a->hodnoty[2][2])+ (a->hodnoty[0][1] * a->hodnoty[1][2] * a->hodnoty[2][0])+ (a->hodnoty[0][2] * a->hodnoty[1][0] * a->hodnoty[2][1]) - (a->hodnoty[2][0] * a->hodnoty[1][1]* a->hodnoty[0][2])- (a->hodnoty[2][1] * a->hodnoty[1][2] * a->hodnoty[0][0])- (a->hodnoty[2][2] * a->hodnoty[1][0] * a->hodnoty[0][1]));
+			printf_s("Determinant = %lf \n", (a->hodnoty[0][0] * a->hodnoty[1][1]* a->hodnoty[2][2])+ (a->hodnoty[0][1] * a->hodnoty[1][2] * a->hodnoty[2][0])+ (a->hodnoty[0][2] * a->hodnoty[1][0] * a->hodnoty[2][1]) - (a->hodnoty[2][0] * a->hodnoty[1][1]* a->hodnoty[0][2])- (a->hodnoty[2][1] * a->hodnoty[1][2] * a->hodnoty[0][0])- (a->hodnoty[2][2] * a->hodnoty[1][0] * a->hodnoty[0][1]));
 		}
 		else if (a->Xrozmer == 4)
 		{
