@@ -179,8 +179,91 @@ void transponovana(struct matice* a, struct matice* c)
 		c->Xrozmer = a->Yrozmer;
 		c->Yrozmer = a->Xrozmer;
 	}
+}
 
-	
+void zeSouboru(struct matice* a, struct matice* b) {
+	FILE* input;
+	fopen_s(&input, "input.txt", "r");
+	if (input == NULL) {
+		perror("Chyba pri cteni ze souboru");
+		return;
+	}
+	int p;
+	int x = 0;
+	int y = 0;
+	int xMax = 0;
+	int newLine = 0;
+
+	for (int i = 0; i < 5; i++) {		//VYNULOVÁNÍ ÈLENÙ MATICE 
+		for (int j = 0; j < 5; j++) {	// (pro pøípad neúplného zapsaní matice, napø. (1 2 3 | 4 5 | 7 8 9),
+			a->hodnoty[i][j] = 0;		// nyní bude (1 2 3 | 4 5 0 | 7 8 9)
+			b->hodnoty[i][j] = 0;		// namísto (1 2 3 | 4 5 -DBL_MAX | 7 8 9)
+		}
+	}
+
+	while (1) { //MATICE 1
+		p = fgetc(input);
+		if (p == 32) { //MEZERA
+			x++;
+			newLine = 0;
+		}
+		else if (p == 10) { //LINE FEED (NOVY RADEK)
+			if (newLine == 1) break;
+			newLine++; //pokud jsou za sebou dva znaky noveho radku -> konec 1. matice
+			y++;
+			if (x > xMax) xMax = x;
+			x = 0;
+			}
+		else if (p >= 48 && p <= 57) { //CISLO
+ 			fseek(input, -1, SEEK_CUR);
+			fscanf_s(input, "%lf", &a->hodnoty[x][y]);
+			newLine = 0;
+		}
+		else if (p == EOF) { //KONEC SOUBORU
+			printf_s("Byla nalezena jen jedna matice.");
+			a->Xrozmer = xMax;
+			a->Yrozmer = y;
+			fclose(input);
+			return;
+		}
+
+		if (x > 5 || y > 5) { //OMEZENI VELIKOSTI MATICE
+			printf_s("Matice 1 presahuje povolene rozmery 5x5.");
+			fclose(input);
+			return;
+		}
+	}
+	a->Xrozmer = xMax+1;
+	a->Yrozmer = y;
+	x = 0; y = 0; xMax = 0;
+
+	do { //MATICE 2
+		p = fgetc(input);
+		if (p == 32) { //MEZERA
+			x++;
+		}
+		else if (p == 10) { //LINE FEED
+			y++;
+			if (x > xMax) xMax = x;
+			x = 0;
+		}
+		else if (p >= 48 && p <= 57) { //CISLO
+			fseek(input, -1, SEEK_CUR);
+			fscanf_s(input, "%lf", &b->hodnoty[x][y]);
+		}
+
+		if (x > 5 || y > 5) { //OMEZENI VELIKOSTI MATICE
+			printf_s("Matice 2 presahuje povolene rozmery 5x5.");
+			fclose(input);
+			return;
+		}
+	} while (feof(input)==0);
+	b->Xrozmer = xMax+1;
+	b->Yrozmer = y+1;
+	fclose(input);
+}
+
+#pragma region OLD_VER
 	/*int vetsiRozmer; //bude se delat asi i pro hodnoty co nejsou naplnene
 	if (max[0] > max[1])
 	{
@@ -194,7 +277,7 @@ void transponovana(struct matice* a, struct matice* c)
 	{
 		final[i]
 	}*/
-}
+
 		/*
 
 
@@ -282,3 +365,4 @@ void transponovana(struct matice* a, struct matice* c)
 				final[1][2] = final[1][2] + M1[c][2] * M2[1][c];
 				final[2][2] = final[2][2] + M1[c][2] * M2[2][c];*/
 //pøiète jednièku tolikrát, kolikrát je velká matice
+#pragma endregion

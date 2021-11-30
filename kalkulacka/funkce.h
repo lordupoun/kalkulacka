@@ -31,3 +31,5 @@ void nasobMatice(struct matice* a, struct matice* b, struct matice* c);
 void determinant(struct matice* a);
 //vypocte transponovanou matici
 void transponovana(struct matice* a, struct matice* c);
+//vytahne matic(i/e) ze souboru
+void zeSouboru(struct matice* a, struct matice* b);
