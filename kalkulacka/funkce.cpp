@@ -1,5 +1,6 @@
 #include "funkce.h"
 #include <stdio.h>
+#include <math.h>
 
 #define Xsloupce 0
 #define Yradky 1 //zamenit max a rozmer
@@ -138,34 +139,37 @@ void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit
 		printf_s("Matice nelze nasobit. \n");
 	}
 }
-void determinant(struct matice* a) //lze optimalizovat, mozna se na to kouknout
+void determinant(struct matice* a) //obecne i pro 5x5	B-)
 {
 	if (a->Xrozmer == a->Yrozmer)
 	{
-		if (a->Xrozmer == 1)
-		{
-			printf_s("Determinant = %lf \n", a->hodnoty[0][0]);
+		struct matice c = *a;
+		double d;
+		double swap;
+		for (int i = 0; i < c.Xrozmer; i++) {
+			for (int y = i+1; y < c.Yrozmer; y++) {
+				if (c.hodnoty[i][i] == 0) { //ZAMEMENI RADKU ZA NASLEDUJICI
+					for (int j = i; j < c.Xrozmer; j++) {
+						swap = c.hodnoty[j][i];
+						c.hodnoty[j][i] = c.hodnoty[j][i + 1];
+						c.hodnoty[j][i + 1] = swap*(-1);
+					}
+				}
+				d = c.hodnoty[i][y] / c.hodnoty[i][i];
+				for (int x = i; x < c.Xrozmer; x++) {
+					c.hodnoty[x][y] = (c.hodnoty[x][y] - (d * c.hodnoty[x][i]));
+				}
+			}
 		}
-		else if (a->Xrozmer == 2)
-		{
-			printf_s("Determinant = %lf \n", (a->hodnoty[0][0] * a->hodnoty[1][1]) - (a->hodnoty[1][0] * a->hodnoty[0][1]));
+		double det = 1;
+		for (int x = 0; x < c.Xrozmer; x++) {
+ 			det *= c.hodnoty[x][x];
 		}
-		else if (a->Xrozmer == 3)
-		{
-			printf_s("Determinant = %lf \n", (a->hodnoty[0][0] * a->hodnoty[1][1]* a->hodnoty[2][2])+ (a->hodnoty[0][1] * a->hodnoty[1][2] * a->hodnoty[2][0])+ (a->hodnoty[0][2] * a->hodnoty[1][0] * a->hodnoty[2][1]) - (a->hodnoty[2][0] * a->hodnoty[1][1]* a->hodnoty[0][2])- (a->hodnoty[2][1] * a->hodnoty[1][2] * a->hodnoty[0][0])- (a->hodnoty[2][2] * a->hodnoty[1][0] * a->hodnoty[0][1]));
-		}
-		else if (a->Xrozmer == 4)
-		{
-			//dodelat
-		}
-		else
-		{
-			printf_s("Program pocita determinant matice ve formatu nejvyse 4x4 \n");
-		}
+		printf_s("Determinant = %lf\n", det);
 	}
 	else
 	{
-		printf_s("Matice neni ctvercova! \n");
+		printf_s("Matice neni ctvercova!\n");
 	}
 }
 void transponovana(struct matice* a, struct matice* c)
@@ -220,15 +224,15 @@ void zeSouboru(struct matice* a, struct matice* b) {
 			newLine = 0;
 		}
 		else if (p == EOF) { //KONEC SOUBORU
-			printf_s("Byla nalezena jen jedna matice.");
-			a->Xrozmer = xMax;
-			a->Yrozmer = y;
+			printf_s("Byla nalezena jen jedna matice.\n");
+			a->Xrozmer = xMax+1;
+			a->Yrozmer = y+1;
 			fclose(input);
 			return;
 		}
 
 		if (x > 5 || y > 5) { //OMEZENI VELIKOSTI MATICE
-			printf_s("Matice 1 presahuje povolene rozmery 5x5.");
+			printf_s("Matice 1 presahuje povolene rozmery 5x5.\n");
 			fclose(input);
 			return;
 		}
@@ -253,7 +257,7 @@ void zeSouboru(struct matice* a, struct matice* b) {
 		}
 
 		if (x > 5 || y > 5) { //OMEZENI VELIKOSTI MATICE
-			printf_s("Matice 2 presahuje povolene rozmery 5x5.");
+			printf_s("Matice 2 presahuje povolene rozmery 5x5.\n");
 			fclose(input);
 			return;
 		}
