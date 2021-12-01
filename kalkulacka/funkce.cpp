@@ -52,6 +52,7 @@ int stejnytypMatice(struct matice* a, struct matice* b)
 {
 	if (a->Xrozmer != b->Xrozmer || a->Yrozmer != b->Yrozmer)
 	{
+		system("cls");
 		printf_s("Nelze scitat - matice nejsou stejneho typu\n");
 		return 1;
 	}
@@ -75,9 +76,9 @@ void sectiMatice(struct matice* a, struct matice* b, struct matice* c)
 				c->hodnoty[x][y] = a->hodnoty[x][y] + b->hodnoty[x][y];
 			}
 		}
-	}
 	system("cls");
 	printf_s("Soucet matic je:\n\n");
+	}
 }
 //Odecte zadane matice
 void odectiMatice(struct matice* a, struct matice* b, struct matice* c)
@@ -97,9 +98,9 @@ void odectiMatice(struct matice* a, struct matice* b, struct matice* c)
 				c->hodnoty[x][y] = a->hodnoty[x][y] - b->hodnoty[x][y];
 			}
 		}
-	}
 	system("cls");
 	printf_s("Rozdil matic je:\n\n");
+	}
 }
 //vynasobi matici skalarem
 void nasobSkalarem(struct matice* a, double skalar, struct matice* c)
