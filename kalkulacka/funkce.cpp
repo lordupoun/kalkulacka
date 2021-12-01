@@ -1,6 +1,7 @@
 #include "funkce.h"
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 #define Xsloupce 0
 #define Yradky 1 //zamenit max a rozmer
@@ -41,7 +42,7 @@ void vypisMatici(struct matice* a)
 	{
 		for (int x = 0; x < a->Xrozmer; x++)
 		{
-			printf_s("%5g", a->hodnoty[x][y]);
+			printf_s("%8g", a->hodnoty[x][y]);
 		}
 		printf_s("\n");
 	}
@@ -75,6 +76,8 @@ void sectiMatice(struct matice* a, struct matice* b, struct matice* c)
 			}
 		}
 	}
+	system("cls");
+	printf_s("Soucet matic je:\n\n");
 }
 //Odecte zadane matice
 void odectiMatice(struct matice* a, struct matice* b, struct matice* c)
@@ -95,9 +98,11 @@ void odectiMatice(struct matice* a, struct matice* b, struct matice* c)
 			}
 		}
 	}
+	system("cls");
+	printf_s("Rozdil matic je:\n\n");
 }
 //vynasobi matici skalarem
-void nasobSkalarem(struct matice* a, int skalar, struct matice* c)
+void nasobSkalarem(struct matice* a, double skalar, struct matice* c)
 {
 	c->Xrozmer = a->Xrozmer;
 	c->Yrozmer = a->Yrozmer;
@@ -108,6 +113,7 @@ void nasobSkalarem(struct matice* a, int skalar, struct matice* c)
 			c->hodnoty[x][y] = a->hodnoty[x][y]*skalar;
 		}
 	}
+	printf_s("Matice vynasobena cislem %.2lf:\n\n", skalar);
 }
 //vynasobi matice M1*M2 - pozor neni komutativni
 void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit nuly
@@ -133,9 +139,13 @@ void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit
 		}
 		c->Xrozmer = b->Xrozmer;//pocet x ve finalnim rozmeru stejny jako pocet x v druhe matici
 		c->Yrozmer = a->Yrozmer;//pocet y ve finalnim rozmeru stejny jako pocet y v druhe matici
+
+		system("cls");
+		printf_s("Vynasobena matice:\n\n");
 	}
 	else
 	{
+		system("cls");
 		printf_s("Matice nelze nasobit. \n");
 	}
 }
@@ -165,10 +175,12 @@ void determinant(struct matice* a) //obecne i pro 5x5	B-)
 		for (int x = 0; x < c.Xrozmer; x++) {
  			det *= c.hodnoty[x][x];
 		}
-		printf_s("Determinant = %lf\n", det);
+		system("cls");
+		printf_s("Determinant matice: %.3lf", det);
 	}
 	else
 	{
+		system("cls");
 		printf_s("Matice neni ctvercova!\n");
 	}
 }
@@ -183,14 +195,51 @@ void transponovana(struct matice* a, struct matice* c)
 		c->Xrozmer = a->Yrozmer;
 		c->Yrozmer = a->Xrozmer;
 	}
+	system("cls");
+	printf_s("Transponovana matice je:\n\n");
+	vypisMatici(c);
 }
 
-void zeSouboru(struct matice* a, struct matice* b) {
+int manualniInput(struct matice* a, struct matice* b) {
+	int count;
+	do {
+		system("cls");
+		printf_s("Zadejte pocet matic (1/2):");
+		scanf_s("%d", &count);
+	} while (count != 1 && count != 2);
+
+	printf_s("Zadejte rozmery 1. matice (format: mxn - radkyXsloupce): ");
+	nactiRozmer(a);
+	printf_s("Zapiste 1. matici:\n");
+	nactiMatici(a);
+	printf_s("Byla vlozena 1. matice ve tvaru: \n");
+	vypisMatici(a);
+
+	if (count == 2) {
+		printf_s("\nZadejte rozmery 2. matice(mn): ");
+		nactiRozmer(b);
+		printf_s("Zapiste 2. matici:\n");
+		nactiMatici(b);
+		printf_s("Byla vlozena 2. matice ve tvaru: \n");
+		vypisMatici(b);
+	}
+	return count;
+}
+
+int zeSouboru(struct matice* a, struct matice* b) {
+	//Return table
+	//
+	//-2 = Moc velka matice
+	//-1 = Nenasel se soubor
+	// 1 = Jedna matice
+	// 2 = Dve matice
+	//
+
 	FILE* input;
 	fopen_s(&input, "input.txt", "r");
 	if (input == NULL) {
 		perror("Chyba pri cteni ze souboru");
-		return;
+		return -1;
 	}
 	int p;
 	int x = 0;
@@ -228,13 +277,13 @@ void zeSouboru(struct matice* a, struct matice* b) {
 			a->Xrozmer = xMax+1;
 			a->Yrozmer = y+1;
 			fclose(input);
-			return;
+			return 1;
 		}
 
 		if (x > 5 || y > 5) { //OMEZENI VELIKOSTI MATICE
 			printf_s("Matice 1 presahuje povolene rozmery 5x5.\n");
 			fclose(input);
-			return;
+			return 3;
 		}
 	}
 	a->Xrozmer = xMax+1;
@@ -259,12 +308,13 @@ void zeSouboru(struct matice* a, struct matice* b) {
 		if (x > 5 || y > 5) { //OMEZENI VELIKOSTI MATICE
 			printf_s("Matice 2 presahuje povolene rozmery 5x5.\n");
 			fclose(input);
-			return;
+			return 3;
 		}
 	} while (feof(input)==0);
 	b->Xrozmer = xMax+1;
 	b->Yrozmer = y+1;
 	fclose(input);
+	return 2;
 }
 
 #pragma region OLD_VER

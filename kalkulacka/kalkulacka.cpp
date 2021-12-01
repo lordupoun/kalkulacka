@@ -3,6 +3,7 @@
 
 #include "kalkulacka.h"
 #include "funkce.h"
+#include "ui.h"
 
 
 using namespace std;
@@ -28,7 +29,8 @@ int main()
 	struct matice A;
 	struct matice B;
 	struct matice Final;
-	int cislo = 5;
+	int maticeCount;
+	int operace;
 	//int matice1[5][5];
 	//int rozmer1[2]; //[0] - x; [1] -y
 	//int matice2[5][5];
@@ -36,40 +38,124 @@ int main()
 	//int maticeFinal[5][5];
 	//int rozmerFinal[2];
 
-	printf_s("Zadejte rozmery 1. matice (format: mxn - radkyXsloupce): ");
-	nactiRozmer(&A);
-	printf_s("Zapiste 1. matici:\n");
-	nactiMatici(&A);
-	printf_s("Byla vlozena 1. matice ve tvaru: \n");
-	vypisMatici(&A);
-
-	printf_s("\nZadejte rozmery 2. matice(mn): ");
-	nactiRozmer(&B);
-	printf_s("Zapiste 2. matici:\n");
-	nactiMatici(&B);
-	printf_s("Byla vlozena 2. matice ve tvaru: \n");
-	vypisMatici(&B);
 	// je to správně? možnost přepsat řádek
 	////switch pro vyber
 	////------scitani
 	////for(matice)
-	sectiMatice(&A, &B, &Final);
-	printf_s("Soucet matic: \n");
-	vypisMatici(&Final);
-	odectiMatice(&A, &B, &Final);
-	printf_s("Rozdil matic: \n");
-	vypisMatici(&Final);
-	printf_s("Nasobeni skalarem: \n");
-	nasobSkalarem(&A, cislo, &Final);
-	vypisMatici(&Final); //maticeFinal.rozmer
-	printf_s("Nasobeni M1xM2: \n");
-	nasobMatice(&A, &B, &Final);
-	vypisMatici(&Final);
-	printf_s("Determinant: \n");
-	determinant(&A); //slo by hodit returnem
-	printf_s("Transponovana matice: \n");
-	transponovana(&A, &Final);
-	vypisMatici(&Final); //rozmer je stejny jako puvodni rozmer
+
+	switch (metoda()) {
+	case 0:
+		system("cls");
+		return 0;
+	case 1:
+		maticeCount = zeSouboru(&A, &B);
+		break;
+	case 2:
+		maticeCount = manualniInput(&A, &B);
+		break;
+	}
+
+	switch (maticeCount){
+	case -1:
+		return -1;
+	case 0:
+		return -2;
+	case 1:
+		switch (operace_1()) {
+		case 1:
+			determinant(&A);
+			break;
+		case 2:
+			transponovana(&A, &Final);
+			break;
+		}
+		break;
+	case 2:
+		switch (operace_2()) {
+		case 1:
+			sectiMatice(&A, &B, &Final);
+			vypisMatici(&Final);
+			break;
+		case 2:
+			switch (vyberMatice_2(&A,&B,45)) {
+			case 1:
+				odectiMatice(&A, &B, &Final);
+				vypisMatici(&Final);
+				break;
+			case 2:
+				odectiMatice(&B, &A, &Final);
+				vypisMatici(&Final);
+				break;
+			}
+			break;
+		case 3:
+			switch (vyberMatice_2(&A, &B, 120)) {
+			case 1:
+				nasobMatice(&A, &B, &Final);
+				vypisMatici(&Final);
+				break;
+			case 2:
+				nasobMatice(&B, &A, &Final);
+				vypisMatici(&Final);
+				break;
+			}
+			break;
+		case 4:
+			switch (vyberMatice_1(&A, &B)) {
+			case 1:
+				nasobSkalarem(&A, getCislo(), &Final);
+				vypisMatici(&Final);
+				break;
+			case 2:
+				nasobSkalarem(&B, getCislo(), &Final);
+				vypisMatici(&Final);
+				break;
+			}
+			break;
+		case 5:
+			switch (vyberMatice_1(&A, &B)) {
+			case 1:
+				determinant(&A);
+				break;
+			case 2:
+				determinant(&B);
+				break;
+			}
+			break;
+		case 6:
+			switch (vyberMatice_1(&A, &B)) {
+			case 1:
+				transponovana(&A, &Final);
+				break;
+			case 2:
+				transponovana(&B, &Final);
+				break;
+			}
+			break;
+		}
+		break;
+	}
+
+	printf_s("\n\n----------\n");
+	
+
+	//sectiMatice(&A, &B, &Final);
+	//printf_s("Soucet matic: \n");
+	//vypisMatici(&Final);
+	//odectiMatice(&A, &B, &Final);
+	//printf_s("Rozdil matic: \n");
+	//vypisMatici(&Final);
+	//printf_s("Nasobeni skalarem: \n");
+	//nasobSkalarem(&A, cislo, &Final);
+	//vypisMatici(&Final); //maticeFinal.rozmer
+	//printf_s("Nasobeni M1xM2: \n");
+	//nasobMatice(&A, &B, &Final);
+	//vypisMatici(&Final);
+	//printf_s("Determinant: \n");
+	//determinant(&A); //slo by hodit returnem
+	//printf_s("Transponovana matice: \n");
+	//transponovana(&A, &Final);
+	//vypisMatici(&Final); //rozmer je stejny jako puvodni rozmer
 
 
 
