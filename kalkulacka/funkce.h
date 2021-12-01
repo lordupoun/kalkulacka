@@ -3,8 +3,8 @@
 struct matice
 {
 	double hodnoty[5][5];
-	int Xrozmer;
-	int Yrozmer;
+	int Xrozmer; //max X rozmer matice
+	int Yrozmer; //max Y rozmer matice
 };
 void inicializuj(struct matice *a);
 
@@ -18,7 +18,6 @@ void nactiMatici(struct matice* a); //nebo int (*matice[5])
 void vypisMatici(struct matice* a);
 //zkontroluje mxn
 int stejnytypMatice(struct matice* a, struct matice* b);
-
 //secte matice
 void sectiMatice(struct matice* a, struct matice* b, struct matice* c);
 //odecte matice

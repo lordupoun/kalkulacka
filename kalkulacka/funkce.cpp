@@ -3,8 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define Xsloupce 0
-#define Yradky 1 //zamenit max a rozmer
+//#define Xsloupce 0
+//#define Yradky 1
 
 void inicializuj(struct matice *a)
 {
@@ -46,7 +46,7 @@ void vypisMatici(struct matice* a)
 		}
 		printf_s("\n");
 	}
-	//vnoøit do sebe funkce a dát tam opakovací pøetížení -pøidat if do pøechozí funkce, a pøidat (, int cislo);
+	
 }
 int stejnytypMatice(struct matice* a, struct matice* b)
 {
@@ -117,7 +117,7 @@ void nasobSkalarem(struct matice* a, double skalar, struct matice* c)
 }
 //vynasobi matice M1*M2 - pozor neni komutativni
 void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit nuly
-{ //nasobeni matic musi byt ulozeno do jineho pole, jinak se bude prepisovat --- zarid smazani
+{ 
 	if (a->Xrozmer == b->Yrozmer)
 	{
 		for (int y = 0; y < 5; y++) //nulovani
@@ -129,7 +129,7 @@ void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit
 		}
 		for (int j = 0; j < a->Xrozmer; j++) //pravidlo o velikosti proto dokud neskonci rozmer matice (stejne se nasobi kazdy s kazdym, jinak by to nevyslo)
 		{
-			for (int d = 0; d < a->Yrozmer; d++) //drive max2[1]
+			for (int d = 0; d < a->Yrozmer; d++) 
 			{
 				for (int h = 0; h < a->Yrozmer; h++)
 				{					//  x  y       x  y       x  y
@@ -318,105 +318,5 @@ int zeSouboru(struct matice* a, struct matice* b) {
 }
 
 #pragma region OLD_VER
-	/*int vetsiRozmer; //bude se delat asi i pro hodnoty co nejsou naplnene
-	if (max[0] > max[1])
-	{
-		vetsiRozmer = max[0];
-	}
-	else 
-	{
-		vetsiRozmer = max[1];
-	}
-	for (int i = 0; i < vetsiRozmer*vetsiRozmer; i++)
-	{
-		final[i]
-	}*/
 
-		/*
-
-
-
-		for (int y = 0; y < max1[1]; y++)
-		{
-			for (int x = 0; x < max2[0]; x++)
-			{
-				//final[x][y] = Matice1[0][0]*Matice2[0][0]+Matice1[1][0]*Matice2[0][1]+Matice1[2][0]*Matice2[0][2];
-				for (int c = 0; c < max1[2]; c++)
-				{		//x  y
-					final[0][0] = final[0][0] + M1[c][0] * M2[0][c];
-					final[1][0] = final[1][0] + M1[c][0] * M2[1][c];
-					final[2][0] = final[2][0] + M1[c][0] * M2[2][c];
-					//-----------------------------------------------
-					final[0][1] = final[0][1] + M1[c][1] * M2[0][c];
-					final[1][1] = final[1][1] + M1[c][1] * M2[1][c];
-					final[2][1] = final[2][1] + M1[c][1] * M2[2][c];
-					//-----------------------------------------------
-					final[0][2] = final[0][2] + M1[c][2] * M2[0][c];
-					final[1][2] = final[1][2] + M1[c][2] * M2[1][c];
-					final[2][2] = final[2][2] + M1[c][2] * M2[2][c];
-				}
-				final[c][0] = final[c][0] + M1[c][0] * M2[c][c];
-				final[c][1] = final[c][1] + M1[c][1] * M2[c][c];
-				final[c][2] = final[c][2] + M1[c][2] * M2[c][c];
-				
-				//final[x][y] = final[x][y] + M1[1][0]*M2[0][1]
-				//+M1[2][0]*M2[0][2]
-			}//první krát první, druhej krát druhej, tøetí krát tøetí
-		}
-	for (int y = 0; y < 5; y++)
-	{
-		for (int x = 0; x < 5; x++)
-		{
-			final[x][y] = 0;
-		}
-	}
-		//for(int d=0; d<;d++)
-	//for (int d = 0; d < max2[0]; d++)
-	//{
-			for (int c = 0; c < max1[1]; c++)
-			{		//x  y
-				/*final[0][0] = final[0][0] + M1[c][0] * M2[0][c];
-				final[1][0] = final[1][0] + M1[c][0] * M2[1][c];
-				final[2][0] = final[2][0] + M1[c][0] * M2[2][c];
-				//-----------------------------------------------
-				final[0][1] = final[0][1] + M1[c][1] * M2[0][c];
-				final[1][1] = final[1][1] + M1[c][1] * M2[1][c];
-				final[2][1] = final[2][1] + M1[c][1] * M2[2][c];
-				//-----------------------------------------------
-				final[0][2] = final[0][2] + M1[c][2] * M2[0][c];
-				final[1][2] = final[1][2] + M1[c][2] * M2[1][c];
-				final[2][2] = final[2][2] + M1[c][2] * M2[2][c];
-				//---------------
-				for(int d=0; d<max2[0]; d++)
-				{ 
-					for (int h = 0; h < max1[1]; h++)
-					{ 
-						final[d][h] = final[d][h] + M1[c][h] * M2[d][c];
-				/*final[d][0] = final[d][0] + M1[c][0] * M2[d][c];
-				final[d][1] = final[d][1] + M1[c][1] * M2[d][c];
-				final[d][2] = final[d][2] + M1[c][2] * M2[d][c];
-					}
-				}
-					//final[c][d] = final[c][d] + M1[c][d] * M2[c][c];
-			}
-				//final[c][d] = final[c][d] + M1[c][d]*M2[d][c]
-	//}
-	*/
-
-//prvni matice urcuje pocet radku, druha pocet sloupcu finalni
-//moznosti: 1) doplnit nuly, bude se vykonavat hodne zbytecneho nasobeni
-//2) zapodminkovat
-//---- rozmyslet dopad pri velkych maticich
-/*				final[0][0] = final[0][0] + M1[c][0] * M2[0][c];
-				final[1][0] = final[1][0] + M1[c][0] * M2[1][c];
-				final[2][0] = final[2][0] + M1[c][0] * M2[2][c];
-				//-----------------------------------------------
-				final[0][1] = final[0][1] + M1[c][1] * M2[0][c];
-				final[1][1] = final[1][1] + M1[c][1] * M2[1][c];
-				final[2][1] = final[2][1] + M1[c][1] * M2[2][c];
-				//-----------------------------------------------
-				final[0][2] = final[0][2] + M1[c][2] * M2[0][c];
-				final[1][2] = final[1][2] + M1[c][2] * M2[1][c];
-				final[2][2] = final[2][2] + M1[c][2] * M2[2][c];*/
-//pøiète jednièku tolikrát, kolikrát je velká matice
 #pragma endregion
