@@ -19,15 +19,15 @@ void vypisMatici(struct matice* a);
 //zkontroluje mxn
 int stejnytypMatice(struct matice* a, struct matice* b);
 //secte matice
-void sectiMatice(struct matice* a, struct matice* b, struct matice* c);
+int sectiMatice(struct matice* a, struct matice* b, struct matice* c);
 //odecte matice
-void odectiMatice(struct matice* a, struct matice* b, struct matice* c);
+int odectiMatice(struct matice* a, struct matice* b, struct matice* c);
 //vynasobi matici skalarem
 void nasobSkalarem(struct matice* a, double skalar, struct matice* c);
 //vynasobi matice
-void nasobMatice(struct matice* a, struct matice* b, struct matice* c);
+int nasobMatice(struct matice* a, struct matice* b, struct matice* c);
 //spocita determinant
-void determinant(struct matice* a);
+double determinant(struct matice* a);
 //vypocte transponovanou matici
 void transponovana(struct matice* a, struct matice* c);
 //vepsani matice do konzole

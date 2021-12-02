@@ -17,9 +17,9 @@ int operace_1() {
 	int a;
 	do {
 		system("cls");
-		printf_s("Vyberte operaci:\n\n[1]\tDeterminant matice\n[2]\tTransponovana matice\n\n> ");
+		printf_s("Vyberte operaci:\n\n[1]\tDeterminant matice\n[2]\tTransponovana matice\n\n[0]\tZpet\n\n> ");
 		scanf_s("%d", &a);
-	} while (a < 1 || a>2);
+	} while (a < 0 || a>2);
 	return a;
 }
 
@@ -27,7 +27,7 @@ int operace_2() {
 	int a;
 	do {
 		system("cls");
-		printf_s("Vyberte operaci:\n\n[1]\tScitani matic\n[2]\tOdecitani matic\n[3]\tNasobeni matice\n[4]\tNasobeni skalarem\n[5]\tDeterminant matice\n[6]\tTransponovana matice\n\n> ");
+		printf_s("Vyberte operaci:\n\n[1]\tScitani matic\n[2]\tOdecitani matic\n[3]\tNasobeni matice\n[4]\tNasobeni skalarem\n[5]\tDeterminant matice\n[6]\tTransponovana matice\n\n[0]\tZpet\n\n> ");
 		scanf_s("%d", &a);
 	} while (a < 0 || a>6);
 	return a;

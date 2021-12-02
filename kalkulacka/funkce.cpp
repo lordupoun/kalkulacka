@@ -59,11 +59,11 @@ int stejnytypMatice(struct matice* a, struct matice* b)
 	return 0;
 }
 //secte matice
-void sectiMatice(struct matice* a, struct matice* b, struct matice* c)
+int sectiMatice(struct matice* a, struct matice* b, struct matice* c)
 {
 	if (stejnytypMatice(a, b) == 1)
 	{
-
+		return 1;
 	}
 	else
 	{
@@ -78,14 +78,15 @@ void sectiMatice(struct matice* a, struct matice* b, struct matice* c)
 		}
 	system("cls");
 	printf_s("Soucet matic je:\n\n");
+	return 0;
 	}
 }
 //Odecte zadane matice
-void odectiMatice(struct matice* a, struct matice* b, struct matice* c)
+int odectiMatice(struct matice* a, struct matice* b, struct matice* c)
 {
 	if (stejnytypMatice(a, b) == 1)
 	{
-
+		return 1;
 	}
 	else
 	{
@@ -100,6 +101,7 @@ void odectiMatice(struct matice* a, struct matice* b, struct matice* c)
 		}
 	system("cls");
 	printf_s("Rozdil matic je:\n\n");
+	return 0;
 	}
 }
 //vynasobi matici skalarem
@@ -117,7 +119,7 @@ void nasobSkalarem(struct matice* a, double skalar, struct matice* c)
 	printf_s("Matice vynasobena cislem %.2lf:\n\n", skalar);
 }
 //vynasobi matice M1*M2 - pozor neni komutativni
-void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit nuly
+int nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit nuly
 { 
 	if (a->Xrozmer == b->Yrozmer)
 	{
@@ -143,14 +145,16 @@ void nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit
 
 		system("cls");
 		printf_s("Vynasobena matice:\n\n");
+		return 0;
 	}
 	else
 	{
 		system("cls");
 		printf_s("Matice nelze nasobit. \n");
+		return 1;
 	}
 }
-void determinant(struct matice* a) //obecne i pro 5x5	B-)
+double determinant(struct matice* a) //obecne i pro 5x5	B-)
 {
 	if (a->Xrozmer == a->Yrozmer)
 	{
@@ -178,11 +182,13 @@ void determinant(struct matice* a) //obecne i pro 5x5	B-)
 		}
 		system("cls");
 		printf_s("Determinant matice: %.3lf", det);
+		return det;
 	}
 	else
 	{
 		system("cls");
 		printf_s("Matice neni ctvercova!\n");
+		return NULL;
 	}
 }
 void transponovana(struct matice* a, struct matice* c)
@@ -317,7 +323,3 @@ int zeSouboru(struct matice* a, struct matice* b) {
 	fclose(input);
 	return 2;
 }
-
-#pragma region OLD_VER
-
-#pragma endregion
