@@ -161,24 +161,39 @@ double determinant(struct matice* a) //obecne i pro 5x5	B-)
 		struct matice c = *a;
 		double d;
 		double swap;
+		int nulSloupec = 0;
+		int nulRadek = 0;
 		for (int i = 0; i < c.Xrozmer; i++) {
-			for (int y = i+1; y < c.Yrozmer; y++) {
-				if (c.hodnoty[i][i] == 0) { //ZAMEMENI RADKU ZA NASLEDUJICI
-					for (int j = i; j < c.Xrozmer; j++) {
+			for (int y = i + 1; y < c.Yrozmer; y++) {
+				if (c.hodnoty[i][i] == 0) {
+					for (int n = i; n < c.Yrozmer; n++) { //je cely sloupec nulovy? (=> nulovy determinant)
+						if (c.hodnoty[i][n] != 0) nulSloupec++;
+					}
+					for (int m = i; m < c.Xrozmer; m++) { //to same s radkem
+						if (c.hodnoty[m][i] != 0) nulRadek++;
+					}
+					if (nulSloupec == 0 || nulRadek == 0) {
+						system("cls");
+						printf_s("Determinant matice: 0");
+						return 0;
+					}
+					for (int j = i; j < c.Xrozmer; j++) { //zameneni radku za dalsi
 						swap = c.hodnoty[j][i];
 						c.hodnoty[j][i] = c.hodnoty[j][i + 1];
-						c.hodnoty[j][i + 1] = swap*(-1);
+						c.hodnoty[j][i + 1] = swap * (-1);
 					}
 				}
 				d = c.hodnoty[i][y] / c.hodnoty[i][i];
 				for (int x = i; x < c.Xrozmer; x++) {
 					c.hodnoty[x][y] = (c.hodnoty[x][y] - (d * c.hodnoty[x][i]));
 				}
+				//vypisMatici(&c);
+				//system("pause");
 			}
 		}
 		double det = 1;
 		for (int x = 0; x < c.Xrozmer; x++) {
- 			det *= c.hodnoty[x][x];
+			det *= c.hodnoty[x][x];
 		}
 		system("cls");
 		printf_s("Determinant matice: %.3lf", det);

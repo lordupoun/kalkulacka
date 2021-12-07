@@ -52,7 +52,8 @@ int main()
 		char name[50]; //max filename size?
 		time(&rawtime);
 		info = localtime(&rawtime);
-		strftime(name, 28, "%d.%m.%y_%H.%M.%S.txt", info); //nesmi byt moc dlouhy
+		//strftime(name, 28, "%d.%m.%y_%H.%M.%S.txt", info); //nesmi byt moc dlouhy
+		strftime(name, 28, "output-%d%m%y_%H%M%S.txt", info);
 		fopen_s(&output, name, "w");
 		//fopen_s(&output, "output.txt", "w");
 
@@ -171,7 +172,7 @@ int main()
 			}
 			printf_s("\n");
 			system("pause");
-			fclose(output);
 		} while (operace);
+		fclose(output);
 	}
 }

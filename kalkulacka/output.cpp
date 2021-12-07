@@ -68,7 +68,7 @@ void outputNasobeniS(FILE* file, matice* a, double b, matice* c) {
 }
 
 void outputDeterminant(FILE* file, matice* a, double d){
-	if (d) {
+	if (a->Xrozmer==a->Yrozmer) {
 		fprintf_s(file, "Determinant matice\n\n");
 		outputVypis(file, a);
 		fprintf_s(file, "\n\t= %8g\n\n----------\n\n",d);
