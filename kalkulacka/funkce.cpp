@@ -116,6 +116,7 @@ void nasobSkalarem(struct matice* a, double skalar, struct matice* c)
 			c->hodnoty[x][y] = a->hodnoty[x][y]*skalar;
 		}
 	}
+	system("cls");
 	printf_s("Matice vynasobena cislem %.2lf:\n\n", skalar);
 }
 //vynasobi matice M1*M2 - pozor neni komutativni
