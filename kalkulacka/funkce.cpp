@@ -241,7 +241,7 @@ int manualniInput(struct matice* a, struct matice* b) {
 	vypisMatici(a);
 
 	if (count == 2) {
-		printf_s("\nZadejte rozmery 2. matice(mn): ");
+		printf_s("\nZadejte rozmery 2. matice (format: mxn - radkyXsloupce): ");
 		nactiRozmer(b);
 		printf_s("Zapiste 2. matici:\n");
 		nactiMatici(b);
