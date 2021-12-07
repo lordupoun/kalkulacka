@@ -29,6 +29,7 @@ int main()
 	struct matice Final;
 	int maticeCount;
 	int operace;
+	int returnVal;
 	FILE* output = nullptr;
 	double k;
 
@@ -48,11 +49,12 @@ int main()
 
 		time_t rawtime;
 		struct tm* info;
-		char name[28];
+		char name[50]; //max filename size?
 		time(&rawtime);
 		info = localtime(&rawtime);
-		strftime(name, 28, "output-%d-%m-%y-%H-%M-%s.txt", info);
+		strftime(name, 28, "%d.%m.%y_%H.%M.%S.txt", info); //nesmi byt moc dlouhy
 		fopen_s(&output, name, "w");
+		//fopen_s(&output, "output.txt", "w");
 
 		do {
 			switch (maticeCount) {
@@ -80,30 +82,50 @@ int main()
 				case 0:
 					break;
 				case 1:
-					outputScitani(output, &A, &B, &Final, sectiMatice(&A, &B, &Final));
+					returnVal = sectiMatice(&A, &B, &Final);
+					outputScitani(output, &A, &B, &Final, returnVal);
+					if(returnVal==0)
+					{
 					vypisMatici(&Final);
+					}
 					break;
 				case 2:
 					switch (vyberMatice_2(&A, &B, 45)) {
 					case 1:
-						outputOdcitani(output, &A, &B, &Final, odectiMatice(&A, &B, &Final));
-						vypisMatici(&Final);
+						returnVal = odectiMatice(&A, &B, &Final);
+						outputOdcitani(output, &A, &B, &Final, returnVal);
+						if (returnVal == 0)
+						{
+							vypisMatici(&Final);
+						}
 						break;
 					case 2:
-						outputOdcitani(output, &B, &A, &Final, odectiMatice(&B, &A, &Final));
-						vypisMatici(&Final);
+						returnVal = odectiMatice(&B, &A, &Final);
+						outputOdcitani(output, &B, &A, &Final, returnVal);
+						if (returnVal == 0)
+						{
+							vypisMatici(&Final);
+						}
 						break;
 					}
 					break;
 				case 3:
 					switch (vyberMatice_2(&A, &B, 120)) {
 					case 1:
-						outputNasobeniM(output, &A, &B, &Final, nasobMatice(&A, &B, &Final));
-						vypisMatici(&Final);
+						returnVal = nasobMatice(&A, &B, &Final);
+						outputNasobeniM(output, &A, &B, &Final, returnVal);
+						if (returnVal == 0)
+						{
+							vypisMatici(&Final);
+						}
 						break;
 					case 2:
-						outputNasobeniM(output, &B, &A, &Final, nasobMatice(&B, &A, &Final));
-						vypisMatici(&Final);
+						returnVal = nasobMatice(&B, &A, &Final);
+						outputNasobeniM(output, &B, &A, &Final, returnVal);
+						if (returnVal == 0)
+						{
+							vypisMatici(&Final);
+						}
 						break;
 					}
 					break;

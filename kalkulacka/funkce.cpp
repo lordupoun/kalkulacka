@@ -22,7 +22,7 @@ for(int y = 0; y < 5; y++)
 //Naplni vlozene pole rozmery matice od uzivatele
 void nactiRozmer(struct matice* a)
 {
-	scanf_s("%d %d", &a->Xrozmer, &a->Yrozmer);
+	scanf_s("%d %d", &a->Yrozmer, &a->Xrozmer);
 }
 //Nacte od uzivatele matici
 void nactiMatici(struct matice* a) //nebo int (*matice[5])
