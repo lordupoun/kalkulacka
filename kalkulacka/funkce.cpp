@@ -131,8 +131,8 @@ int nasobMatice(struct matice* a, struct matice* b, struct matice* c) //doplnit 
 			}
 		}
 		for (int j = 0; j < a->Xrozmer; j++) //pravidlo o velikosti proto dokud neskonci rozmer matice (stejne se nasobi kazdy s kazdym, jinak by to nevyslo)
-		{
-			for (int d = 0; d < a->Yrozmer; d++) 
+		{ //kdyztak dopln if kterej vezme ten vetsi rozmer... ono to nejak pujde
+			for (int d = 0; d < b->Xrozmer; d++)
 			{
 				for (int h = 0; h < a->Yrozmer; h++)
 				{					//  x  y       x  y       x  y
