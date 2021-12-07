@@ -161,11 +161,13 @@ double determinant(struct matice* a) //obecne i pro 5x5	B-)
 		struct matice c = *a;
 		double d;
 		double swap;
-		int nulSloupec = 0;
-		int nulRadek = 0;
+		int nulSloupec;
+		int nulRadek;
 		for (int i = 0; i < c.Xrozmer; i++) {
 			for (int y = i + 1; y < c.Yrozmer; y++) {
 				if (c.hodnoty[i][i] == 0) {
+					nulSloupec = 0;
+					nulRadek = 0;
 					for (int n = i; n < c.Yrozmer; n++) { //je cely sloupec nulovy? (=> nulovy determinant)
 						if (c.hodnoty[i][n] != 0) nulSloupec++;
 					}
